@@ -1,6 +1,7 @@
 'use client'
 import { api } from "@/api/axios";
 import { MovieTableRow } from "@/components/movie-table-row";
+import { MoviesFilters } from "@/components/movies-filters";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { IMovieRow } from "@/types/movie.type";
@@ -9,13 +10,28 @@ import { useState } from "react";
 
 export default function Home() {
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [genre, setGenre] = useState("");
+
+  const handleFilter = (filtros: { search: string; genre: string }) => {
+    setSearch(filtros.search);
+    setGenre(filtros.genre);
+    setPage(1);
+  };
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['movies', page],
+    queryKey: ['movies', page, search, genre],
     queryFn: async () => {
-      const response = await api.get('/movies', { params: { page } });
-      console.log(response.data);
-      return response.data;
+      const params: any = { page };
+      if (search) params.q = search;
+      if (genre) params.genre = genre;
+      if (search || genre) {
+        const response = await api.get('/movies/search', { params });
+        return response.data;
+      } else {
+        const response = await api.get('/movies', { params });
+        return response.data;
+      }
     }
   });
 
@@ -48,8 +64,8 @@ export default function Home() {
     <div className="p-4">
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold tracking-tighter">IMDB Database.</h1>    
-            <div className="space-y-2.5">
-              {/* <OrderTableFilters /> */}
+            <div className="space-y-2.5 mt-4">
+              <MoviesFilters onFilter={handleFilter} />
               <div className="border rounded-md">
                   <Table>
                       <TableHeader className="bg-zinc-200">
@@ -65,9 +81,15 @@ export default function Home() {
                           </TableRow>
                       </TableHeader>
                       <TableBody>
-                          {movies.map((movie: IMovieRow) => (
-                              <MovieTableRow key={movie.id} movie={movie}/>
-                          ))}
+                        {movies.length === 0 ? (
+                          <TableRow>
+                            <TableHead colSpan={8}>Nenhum filme encontrado.</TableHead>
+                          </TableRow>
+                        ) : (
+                          movies.map((movie: IMovieRow) => (
+                            <MovieTableRow key={movie.id} movie={movie}/>
+                          ))
+                        )}
                       </TableBody>
                   </Table>
               </div>
