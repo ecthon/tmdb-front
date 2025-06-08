@@ -38,21 +38,21 @@ export function MoviesFilters({ onFilter }: MoviesFiltersProps) {
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="all">Todos os gêneros</SelectItem>
-                    <SelectItem value="adventure">Aventura</SelectItem>
-                    <SelectItem value="comedy">Comédia</SelectItem>
-                    <SelectItem value="documentary">Documentário</SelectItem>
-                    <SelectItem value="mystery">Mistério</SelectItem>
-                    <SelectItem value="horror">Terror</SelectItem>
-                    <SelectItem value="family">Família</SelectItem>
+                    <SelectItem value="Adventure">Aventura</SelectItem>
+                    <SelectItem value="Comedy">Comédia</SelectItem>
+                    <SelectItem value="Documentary">Documentário</SelectItem>
+                    <SelectItem value="Mystery">Mistério</SelectItem>
+                    <SelectItem value="Horror">Terror</SelectItem>
+                    <SelectItem value="Family">Família</SelectItem>
                 </SelectContent>
             </Select>
 
-            <Button type="submit" variant="secondary" size="sm">
+            <Button type="submit" variant="secondary" size="sm" className="cursor-pointer border border-transparent hover:border-gray-300">
                 <Search className="mr-2 h-4 w-4" />
                 Filtrar resultados
             </Button>
 
-            <Button type="button" variant="outline" size="sm" onClick={handleRemoveFilters}>
+            <Button type="button" variant="outline" size="sm" onClick={handleRemoveFilters} className="cursor-pointer">
                 <X className="mr-2 h-4 w-4" />
                 Remover Filtros
             </Button>
