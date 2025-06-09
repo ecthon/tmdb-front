@@ -38,6 +38,14 @@ export function useMovies() {
     }
   });
 
+  const perYearQuery = useQuery({
+    queryKey: ['per-year'],
+    queryFn: async () => {
+      const response = await api.get('/movies/per-year');
+      return response.data;
+    }
+  });
+
   const moviesArray = Array.isArray(data)
     ? data
     : data?.movies || [];
@@ -75,5 +83,8 @@ export function useMovies() {
     recommendedMovies: recommendedMoviesQuery.data,
     isLoadingRecommended: recommendedMoviesQuery.isLoading,
     errorRecommended: recommendedMoviesQuery.error,
+    perYear: perYearQuery.data,
+    isLoadingPerYear: perYearQuery.isLoading,
+    errorPerYear: perYearQuery.error,
   };
 } 
