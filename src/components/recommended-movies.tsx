@@ -1,11 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Star, Clock, Calendar } from "lucide-react"
-import Image from "next/image"
+"use client"
 import { useMovies } from "@/hooks/useMovies"
 import { useState, useEffect } from "react"
 import { MovieList } from "./RecommendedMovies/movie-list"
-import { formatDate, formatRuntime } from "@/utils/format"
 import { MovieDetailsCard } from "./RecommendedMovies/movie-details-card"
 
 export interface Movie {
