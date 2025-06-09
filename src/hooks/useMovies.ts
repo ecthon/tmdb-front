@@ -30,6 +30,14 @@ export function useMovies() {
     }
   });
 
+  const recommendedMoviesQuery = useQuery({
+    queryKey: ['recommended-movies'],
+    queryFn: async () => {
+      const response = await api.get('/movies/recommend');
+      return response.data;
+    }
+  });
+
   const moviesArray = Array.isArray(data)
     ? data
     : data?.movies || [];
@@ -64,5 +72,8 @@ export function useMovies() {
     handleFilter,
     handlePrevious,
     handleNext,
+    recommendedMovies: recommendedMoviesQuery.data,
+    isLoadingRecommended: recommendedMoviesQuery.isLoading,
+    errorRecommended: recommendedMoviesQuery.error,
   };
 } 

@@ -1,0 +1,73 @@
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Star, Clock, Calendar } from "lucide-react"
+import Image from "next/image"
+import { useMovies } from "@/hooks/useMovies"
+import { useState, useEffect } from "react"
+import { MovieList } from "./RecommendedMovies/movie-list"
+import { formatDate, formatRuntime } from "@/utils/format"
+import { MovieDetailsCard } from "./RecommendedMovies/movie-details-card"
+
+export interface Movie {
+  id: string
+  movie_id: number
+  title: string
+  original_title: string
+  overview: string
+  tagline: string
+  status: string
+  release_date: string
+  runtime: number
+  adult: boolean
+  original_language: string
+  homepage: string
+  imdb_id: string
+  budget: number
+  revenue: number
+  vote_average: number
+  vote_count: number
+  popularity: number
+  backdrop_path: string
+  poster_path: string
+  genres: string[]
+  production_companies: string[]
+  production_countries: string[]
+  spoken_languages: string[]
+  keywords: string[]
+  inserted_at: string
+  updated_at: string
+}
+
+interface RecommendedMovies {
+  movie: Movie
+}
+
+export function RecommendedMovies() {
+  const { recommendedMovies, isLoadingRecommended } = useMovies();
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+
+  useEffect(() => {
+    if (recommendedMovies && recommendedMovies.length > 0 && !selectedMovie) {
+      setSelectedMovie(recommendedMovies[0]);
+    }
+  }, [recommendedMovies, selectedMovie]);
+
+  if (isLoadingRecommended) {
+    return <div>Carregando recomendações...</div>;
+  }
+
+  return (
+    <div className="flex w-full gap-4 items-center">
+      <div className="w-1/2">
+        <MovieList
+          movies={recommendedMovies}
+          selectedMovie={selectedMovie}
+          onSelect={setSelectedMovie}
+        />
+      </div>
+      <div className="w-1/2 flex items-center">
+        <MovieDetailsCard movie={selectedMovie} />
+      </div>
+    </div>
+  )
+}
