@@ -49,3 +49,17 @@ Projeto front-end desenvolvido em Next.js para exibição de informações de fi
    ```
 3. Acesse [http://localhost:3000](http://localhost:3000) no navegador.
 
+## Imagens da Aplicação
+
+### Home
+![Home](.github/home.png)
+
+### Recomendados
+![Recomendados](.github/recomendados.png)
+
+### Detalhes
+![Detalhes](.github/details.png)
+
+### Gráfico
+![Gráfico](.github/chart.png)
+
