@@ -3,6 +3,8 @@
 import { Line, LineChart, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { Atom } from "react-loading-indicators";
+import { Loading } from "./loading";
 
 interface PerYearItem {
   year: number;
@@ -22,7 +24,7 @@ export default function DashboardReleasesPerYears({ perYear }: DashboardReleases
   const averagePerYear = Math.round(totalByYear / perYear.length)
 
   if (!Array.isArray(perYear) || perYear.length === 0) {
-    return <div>Carregando recomendações...</div>;
+    return <Loading />;
   }
 
   console.log(perYear)

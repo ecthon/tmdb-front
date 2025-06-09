@@ -3,6 +3,8 @@ import { useMovies } from "@/hooks/useMovies"
 import { useState, useEffect } from "react"
 import { MovieList } from "./RecommendedMovies/movie-list"
 import { MovieDetailsCard } from "./RecommendedMovies/movie-details-card"
+import { Atom } from "react-loading-indicators"
+import { Loading } from "./loading"
 
 export interface Movie {
   id: string
@@ -49,7 +51,7 @@ export function RecommendedMovies() {
   }, [recommendedMovies, selectedMovie]);
 
   if (isLoadingRecommended) {
-    return <div>Carregando recomendações...</div>;
+    return <Loading />;
   }
 
   return (

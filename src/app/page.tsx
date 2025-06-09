@@ -3,6 +3,8 @@ import { MoviesFilters } from "@/components/movies-filters";
 import { MoviesTable } from "@/components/movies-table";
 import { MoviesPagination } from "@/components/movies-pagination";
 import { useMovies } from "@/hooks/useMovies";
+import { Atom } from "react-loading-indicators";
+import { Loading } from "@/components/loading";
 
 export default function Home() {
   const {
@@ -17,7 +19,7 @@ export default function Home() {
     handleNext,
   } = useMovies();
 
-  if (isLoading) return <div>Carregando...</div>;
+  if (isLoading) return <Loading />;
   if (error) return <div>Erro ao buscar filmes</div>;
 
   return (
