@@ -46,6 +46,14 @@ export function useMovies() {
     }
   });
 
+  const getMovieById = (id: string) => useQuery({
+    queryKey: ['movie-by-id', id],
+    queryFn: async () => {
+      const response = await api.get(`/movies/${id}`); 
+      return response.data;
+    }
+  });
+
   const moviesArray = Array.isArray(data)
     ? data
     : data?.movies || [];
@@ -86,5 +94,6 @@ export function useMovies() {
     perYear: perYearQuery.data,
     isLoadingPerYear: perYearQuery.isLoading,
     errorPerYear: perYearQuery.error,
+    getMovieById,
   };
 } 

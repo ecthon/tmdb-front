@@ -1,3 +1,6 @@
+"use client"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Search, Star } from "lucide-react";
 import { Button } from "./ui/button";
 import { TableCell, TableRow } from "./ui/table";
@@ -8,18 +11,24 @@ type MovieTableRowProps = {
 }
 
 export function MovieTableRow({ movie }: MovieTableRowProps) {
-    return(
+    const router = useRouter();
+
+    const handleGoToDetails = () => {
+        router.push(`/movie-details/${movie.id}`);
+    };
+
+    return (
         <TableRow>
             <TableCell>
-                {/* <Dialog>
-                    <DialogTrigger asChild> */}
-                        <Button variant="outline" size="sm">
-                            <Search className="h-3 w-3"/>
-                            <span className="sr-only">Detalhes do filme</span>
-                        </Button>
-                    {/* </DialogTrigger>
-                    <OrderDetails />
-                </Dialog> */}
+                <Button
+                    variant="outline"
+                    size="sm"
+                    className="cursor-pointer"
+                    onClick={handleGoToDetails}
+                >
+                    <Search className="h-3 w-3" />
+                    <span className="sr-only">Detalhes do filme</span>
+                </Button>
             </TableCell>
             <TableCell className="font-mono text-xs font-medium">
                 {movie.title}
@@ -29,8 +38,10 @@ export function MovieTableRow({ movie }: MovieTableRowProps) {
             </TableCell>
             <TableCell>
                 <div className="flex items-center gap-2">
-                    <Star className="h-4 w-4 mr-2 text-yellow-500 fill-yellow-500"/>
-                    <span className="font-medium font-bold text-muted-foreground"><strong>{movie.imdbRating}</strong>/10</span>
+                    <Star className="h-4 w-4 mr-2 text-yellow-500 fill-yellow-500" />
+                    <span className="font-medium font-bold text-muted-foreground">
+                        <strong>{movie.imdbRating}</strong>/10
+                    </span>
                 </div>
             </TableCell>
             <TableCell>{movie.duration}</TableCell>
@@ -40,5 +51,5 @@ export function MovieTableRow({ movie }: MovieTableRowProps) {
                 {movie.genres.length > 0 ? movie.genres.join(", ") : "-"}
             </TableCell>
         </TableRow>
-    )
+    );
 }

@@ -13,7 +13,7 @@ export function MoviesTable({ movies }: MoviesTableProps) {
       <Table>
         <TableHeader className="bg-zinc-200">
           <TableRow>
-            <TableHead className="w-[64px]"></TableHead>
+            <TableHead className="w-[64px]">Detalhes</TableHead>
             <TableHead className="w-[180px]">Título</TableHead>
             <TableHead className="w-[180px]">Título Original</TableHead>
             <TableHead className="w-[80px]">Nota IMDB</TableHead>
